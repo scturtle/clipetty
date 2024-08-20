@@ -155,12 +155,6 @@ Optionally base64 encode it first if you specify non-nil for ENCODE."
 Since this is intended to be used with `add-function', ORIG-FUN is
 the original `interprogram-cut-function' that we're advising."
   (unless (display-graphic-p)
-    ;; An exclamation mark is an invalid base64 string. This signals to the
-    ;; Kitty terminal emulator to reset the clipboard.  Other terminals will
-    ;; simply ignore this.
-    ;;
-    ;; TODO: Support longer than `clipetty--max-cut' length messages in Kitty.
-    (clipetty--emit (clipetty--osc "!"))
     (clipetty--emit (clipetty--osc string t)))
   ;; Always chain to the original cut function.
   (funcall orig-fun string))
